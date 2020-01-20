@@ -11,7 +11,7 @@
 	 * real life you probably would be making AJAX calls
 	 */
 	function Store(name, callback) {
-		callback = callback || function () {};
+		callback = callback || function () { };
 
 		this._dbName = name;
 
@@ -62,7 +62,7 @@
 	 * @param {function} callback The callback to fire upon retrieving data
 	 */
 	Store.prototype.findAll = function (callback) {
-		callback = callback || function () {};
+		callback = callback || function () { };
 		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
 	};
 
@@ -78,14 +78,14 @@
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 
-		callback = callback || function () {};
+		callback = callback || function () { };
 
 		// Generate an ID
-	    var newId = ""; 
-	    var charset = "0123456789";
+		var newId = "";
+		var charset = "0123456789";
 
-        for (var i = 0; i < 6; i++) {
-     		newId += charset.charAt(Math.floor(Math.random() * charset.length));
+		for (var i = 0; i < 6; i++) {
+			newId += charset.charAt(Math.floor(Math.random() * charset.length));
 		}
 
 		// If an ID was actually given, find the item and update each property
@@ -103,9 +103,9 @@
 			callback.call(this, todos);
 		} else {
 
-    		// Assign an ID
+			// Assign an ID
 			updateData.id = parseInt(newId);
-    
+
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
@@ -123,7 +123,7 @@
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 		var todoId;
-		
+
 		for (var i = 0; i < todos.length; i++) {
 			if (todos[i].id == id) {
 				todoId = todos[i].id;
@@ -146,7 +146,7 @@
 	 * @param {function} callback The callback to fire after dropping the data
 	 */
 	Store.prototype.drop = function (callback) {
-		var data = {todos: []};
+		var data = { todos: [] };
 		localStorage[this._dbName] = JSON.stringify(data);
 		callback.call(this, data.todos);
 	};

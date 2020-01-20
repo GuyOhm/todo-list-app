@@ -19,7 +19,7 @@
 	 */
 	Model.prototype.create = function (title, callback) {
 		title = title || '';
-		callback = callback || function () {};
+		callback = callback || function () { };
 
 		var newItem = {
 			title: title.trim(),
@@ -46,7 +46,7 @@
 	 */
 	Model.prototype.read = function (query, callback) {
 		var queryType = typeof query;
-		callback = callback || function () {};
+		callback = callback || function () { };
 
 		if (queryType === 'function') {
 			callback = query;
