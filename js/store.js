@@ -14,6 +14,7 @@
 		callback = callback || function () { };
 
 		this._dbName = name;
+		this.index = 0;
 
 		if (!localStorage[name]) {
 			var data = {
@@ -80,14 +81,6 @@
 
 		callback = callback || function () { };
 
-		// Generate an ID
-		var newId = "";
-		var charset = "0123456789";
-
-		for (var i = 0; i < 6; i++) {
-			newId += charset.charAt(Math.floor(Math.random() * charset.length));
-		}
-
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			for (var i = 0; i < todos.length; i++) {
@@ -102,11 +95,11 @@
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, todos);
 		} else {
-
 			// Assign an ID
-			updateData.id = parseInt(newId);
-
-
+			updateData.id = this.index;
+			// Increment the store index to make sure we have a unique id
+			this.index ++;
+			
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, [updateData]);
