@@ -22,6 +22,12 @@
 			};
 
 			localStorage[name] = JSON.stringify(data);
+		} 
+		// Make sure the store index is updated accordingly when refreshing page
+		else if ( JSON.parse(localStorage[name]).todos.length > 0 ) {
+			var todos = JSON.parse(localStorage[name]).todos;
+			var lastIndex = todos.length - 1;
+			this.index = todos[lastIndex].id + 1;
 		}
 
 		callback.call(this, JSON.parse(localStorage[name]));
