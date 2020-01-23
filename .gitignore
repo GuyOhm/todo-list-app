@@ -6,5 +6,5 @@ node_modules/todomvc-common
 !node_modules/todomvc-common/base.css
 node_modules/
 .DS_Store
-out/
 package-lock.json
+docs/
