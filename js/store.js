@@ -84,11 +84,11 @@
 	Store.prototype.save = function (updateData, callback, id) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
-
+		
 		callback = callback || function () { };
 
 		// If an ID was actually given, find the item and update each property
-		if (id) {
+		if (id !== undefined && id !== null) {
 			for (var i = 0; i < todos.length; i++) {
 				if (todos[i].id === id) {
 					for (var key in updateData) {
