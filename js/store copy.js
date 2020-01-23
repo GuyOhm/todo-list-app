@@ -1,33 +1,35 @@
-/**
- * Creates a new client side storage object and will create an empty
- * collection if no collection already exists.
- *
- * @param {string} name The name of our DB we want to use
- * @param {function} callback Our fake DB uses callbacks because in
- * real life you probably would be making AJAX calls
- */
-class Store {
+/*jshint eqeqeq:false */
+(function (window) {
+	'use strict';
 
-	constructor (name, callback) {
+	/**
+	 * Creates a new client side storage object and will create an empty
+	 * collection if no collection already exists.
+	 *
+	 * @param {string} name The name of our DB we want to use
+	 * @param {function} callback Our fake DB uses callbacks because in
+	 * real life you probably would be making AJAX calls
+	 */
+	function Store(name, callback) {
 		callback = callback || function () { };
-	
+
 		this._dbName = name;
 		this.index = 0;
-	
+
 		if (!localStorage[name]) {
 			var data = {
 				todos: []
 			};
-	
+
 			localStorage[name] = JSON.stringify(data);
-		}
+		} 
 		// Make sure the store index is updated accordingly when refreshing page
 		else if ( JSON.parse(localStorage[name]).todos.length > 0 ) {
 			var todos = JSON.parse(localStorage[name]).todos;
 			var lastIndex = todos.length - 1;
 			this.index = todos[lastIndex].id + 1;
 		}
-	
+
 		callback.call(this, JSON.parse(localStorage[name]));
 	}
 
@@ -44,7 +46,7 @@ class Store {
 	 *	 // hello: world in their properties
 	 * });
 	 */
-	find (query, callback) {
+	Store.prototype.find = function (query, callback) {
 		if (!callback) {
 			return;
 		}
@@ -66,7 +68,7 @@ class Store {
 	 *
 	 * @param {function} callback The callback to fire upon retrieving data
 	 */
-	findAll (callback) {
+	Store.prototype.findAll = function (callback) {
 		callback = callback || function () { };
 		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
 	};
@@ -79,7 +81,7 @@ class Store {
 	 * @param {function} callback The callback to fire after saving
 	 * @param {number} id An optional param to enter an ID of an item to update
 	 */
-	save (updateData, callback, id) {
+	Store.prototype.save = function (updateData, callback, id) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 		
@@ -116,7 +118,7 @@ class Store {
 	 * @param {number} id The ID of the item you want to remove
 	 * @param {function} callback The callback to fire after saving
 	 */
-	remove (id, callback) {
+	Store.prototype.remove = function (id, callback) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 
@@ -136,12 +138,13 @@ class Store {
 	 *
 	 * @param {function} callback The callback to fire after dropping the data
 	 */
-	drop (callback) {
+	Store.prototype.drop = function (callback) {
 		var data = { todos: [] };
 		localStorage[this._dbName] = JSON.stringify(data);
 		callback.call(this, data.todos);
 	};
 
-}
-
-export default Store;
+	// Export to window
+	window.app = window.app || {};
+	window.app.Store = Store;
+})(window);
