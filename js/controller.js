@@ -1,15 +1,26 @@
 	/**
 	 * Takes a model and view and acts as the controller between them
 	 *
-	 * @constructor
-	 * @param {object} model The model instance
-	 * @param {object} view The view instance
+	 * @param {Model} model The model instance
+	 * @param {View} view The view instance
 	 */
 	class Controller {
-
+		/**
+		 * 
+		 * @constructor
+		 * @param {Model} model The model instance
+		 * @param {View} view The view instance
+		 * 
+		 */
 		constructor(model, view) {
 			var self = this;
+			/**
+			 * @type {Model}
+			 */
 			self.model = model;
+			/**
+			 * @type {View}
+			 */
 			self.view = view;
 	
 			self.view.bind('newTodo', function (title) {
@@ -48,7 +59,7 @@
 		/**
 		 * Loads and initialises the view
 		 *
-		 * @param {string} '' | 'active' | 'completed'
+		 * @param {string} locationHash can take the following value: '' | 'active' | 'completed'
 		 */
 		setView (locationHash) {
 			var route = locationHash.split('/')[1];
@@ -90,6 +101,8 @@
 		/**
 		 * An event to fire whenever you want to add an item. Simply pass in the event
 		 * object and it'll handle the DOM insertion and saving of the new item.
+		 * 
+		 * @param {string} title The name of the todo to add
 		 */
 		addItem (title) {
 			var self = this;
@@ -104,8 +117,10 @@
 			});
 		};
 	
-		/*
+		/**
 		 * Triggers the item editing mode.
+		 * 
+		 * @param {number} id The id of the todo we want to edit
 		 */
 		editItem (id) {
 			var self = this;
@@ -114,8 +129,13 @@
 			});
 		};
 	
-		/*
+		/**
 		 * Finishes the item editing mode successfully.
+		 * If the title is empty, the todo is removed.
+		 * 
+		 * @param {number} id The id of the todo we want to save after editing
+		 * @param {string} title The new title of the updated todo
+		 * @todo simplify triming title
 		 */
 		editItemSave (id, title) {
 			var self = this;
@@ -137,8 +157,10 @@
 			}
 		};
 	
-		/*
+		/**
 		 * Cancels the item editing mode.
+		 * 
+		 * @param {number} id The id of the todo we wanted to edit
 		 */
 		editItemCancel (id) {
 			var self = this;
@@ -208,6 +230,8 @@
 		/**
 		 * Will toggle ALL checkboxes' on/off state and completeness of models.
 		 * Just pass in the event object.
+		 * 
+		 * @param {object} completed The on/off state of models 
 		 */
 		toggleAll (completed) {
 			var self = this;
@@ -260,6 +284,8 @@
 	
 		/**
 		 * Simply updates the filter nav's selected states
+		 * 
+		 * @param {string} currentPage The current active route
 		 */
 		_updateFilterState (currentPage) {
 			// Store a reference to the active route, allowing us to re-filter todo

@@ -15,7 +15,6 @@ class Todo {
 	/**
 	 * @constructor
 	 * @param {string} name The name of your new to do list.
-	 * 
 	 */
 	constructor(name) {
 		/**

@@ -4,6 +4,7 @@
  * 
  * @example
  * var storage = new Store(name, callback);
+ * 
  */
 class Store {
 	/**
@@ -13,9 +14,15 @@ class Store {
  	 * real life you probably would be making AJAX calls
 	 */
 	constructor (name, callback) {
+
 		callback = callback || function () { };
-	
+		/**
+		 * @type {string}
+		 */
 		this._dbName = name;
+		/**
+		 * @type {number} 
+		 */
 		this.index = 0;
 	
 		if (!localStorage[name]) {
@@ -37,10 +44,15 @@ class Store {
 
 	/**
 	 * Finds items based on a query given as a JS object
+	 * 
+	 * This function gets the current todos from local storage and filters
+	 * each of its element and iterates through their properties to check if they match
+	 * the query
 	 *
 	 * @param {object} query The query to match against (i.e. {foo: 'bar'})
 	 * @param {function} callback	 The callback to fire when the query has
 	 * completed running
+	 * @returns {boolean} Whether the object has been found or not
 	 *
 	 * @example
 	 * db.find({foo: 'bar', hello: 'world'}, function (data) {
@@ -78,7 +90,10 @@ class Store {
 	/**
 	 * Will save the given data to the DB. If no item exists it will create a new
 	 * item, otherwise it'll simply update an existing item's properties
-	 *
+	 * 
+	 * When a new item is created, current Store instance's index is used as unique id
+	 * then index is incremented
+	 * 
 	 * @param {object} updateData The data to save back into the DB
 	 * @param {function} callback The callback to fire after saving
 	 * @param {number} id An optional param to enter an ID of an item to update
@@ -116,6 +131,9 @@ class Store {
 
 	/**
 	 * Will remove an item from the Store based on its ID
+	 * 
+	 * This function iterates through the todos and removes the element
+	 * if the id matches
 	 *
 	 * @param {number} id The ID of the item you want to remove
 	 * @param {function} callback The callback to fire after saving
@@ -137,6 +155,9 @@ class Store {
 
 	/**
 	 * Will drop all storage and start fresh
+	 * 
+	 * This function creates an empty todos and replace the current
+	 * one with it
 	 *
 	 * @param {function} callback The callback to fire after dropping the data
 	 */
