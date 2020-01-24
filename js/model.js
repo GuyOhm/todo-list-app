@@ -1,11 +1,16 @@
 /**
  * Creates a new Model instance and hooks up the storage.
  *
- * @constructor
  * @param {object} storage A reference to the client side storage class
+ * 
+ * @example
+ * var model = new Model()
  */
 class Model {
-
+	/**
+	 * @constructor
+ 	 * @param {Store} storage A reference to the client side storage class
+	 */
 	constructor(storage) {
 		this.storage = storage;
 	}
@@ -91,6 +96,8 @@ class Model {
 	
 	/**
 	 * Returns a count of all todos
+	 * 
+	 * @param {function} callback The callback triggered with the count results passed to it
 	 */
 	getCount (callback) {
 		var todos = {
