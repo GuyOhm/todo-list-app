@@ -1,44 +1,59 @@
-/*jshint eqeqeq:false */
-(function (window) {
-	'use strict';
-
+/**
+ * Creates a new client side storage object and will create an empty
+ * collection if no collection already exists.
+ * 
+ * @example
+ * var storage = new Store(name, callback);
+ * 
+ */
+class Store {
 	/**
-	 * Creates a new client side storage object and will create an empty
-	 * collection if no collection already exists.
-	 *
+	 * @constructor
 	 * @param {string} name The name of our DB we want to use
-	 * @param {function} callback Our fake DB uses callbacks because in
-	 * real life you probably would be making AJAX calls
+ 	 * @param {function} callback Our fake DB uses callbacks because in
+ 	 * real life you probably would be making AJAX calls
 	 */
-	function Store(name, callback) {
+	constructor (name, callback) {
+
 		callback = callback || function () { };
-
+		/**
+		 * @type {string}
+		 */
 		this._dbName = name;
+		/**
+		 * @type {number} 
+		 */
 		this.index = 0;
-
+	
 		if (!localStorage[name]) {
 			var data = {
 				todos: []
 			};
-
+	
 			localStorage[name] = JSON.stringify(data);
-		} 
+		}
 		// Make sure the store index is updated accordingly when refreshing page
+		// (is working as long as we can't reorganize the todos i.e. keep the same indexes)
 		else if ( JSON.parse(localStorage[name]).todos.length > 0 ) {
 			var todos = JSON.parse(localStorage[name]).todos;
 			var lastIndex = todos.length - 1;
 			this.index = todos[lastIndex].id + 1;
 		}
-
+	
 		callback.call(this, JSON.parse(localStorage[name]));
 	}
 
 	/**
 	 * Finds items based on a query given as a JS object
+	 * 
+	 * This function gets the current todos from local storage and filters
+	 * each of its element and iterates through their properties to check if they match
+	 * the query
 	 *
 	 * @param {object} query The query to match against (i.e. {foo: 'bar'})
 	 * @param {function} callback	 The callback to fire when the query has
 	 * completed running
+	 * @returns {boolean} Whether the object has been found or not
 	 *
 	 * @example
 	 * db.find({foo: 'bar', hello: 'world'}, function (data) {
@@ -46,7 +61,7 @@
 	 *	 // hello: world in their properties
 	 * });
 	 */
-	Store.prototype.find = function (query, callback) {
+	find (query, callback) {
 		if (!callback) {
 			return;
 		}
@@ -68,7 +83,7 @@
 	 *
 	 * @param {function} callback The callback to fire upon retrieving data
 	 */
-	Store.prototype.findAll = function (callback) {
+	findAll (callback) {
 		callback = callback || function () { };
 		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
 	};
@@ -76,12 +91,15 @@
 	/**
 	 * Will save the given data to the DB. If no item exists it will create a new
 	 * item, otherwise it'll simply update an existing item's properties
-	 *
+	 * 
+	 * When a new item is created, current Store instance's index is used as unique id
+	 * then index is incremented
+	 * 
 	 * @param {object} updateData The data to save back into the DB
 	 * @param {function} callback The callback to fire after saving
 	 * @param {number} id An optional param to enter an ID of an item to update
 	 */
-	Store.prototype.save = function (updateData, callback, id) {
+	save (updateData, callback, id) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 		
@@ -114,11 +132,14 @@
 
 	/**
 	 * Will remove an item from the Store based on its ID
+	 * 
+	 * This function iterates through the todos and removes the element
+	 * if the id matches
 	 *
 	 * @param {number} id The ID of the item you want to remove
 	 * @param {function} callback The callback to fire after saving
 	 */
-	Store.prototype.remove = function (id, callback) {
+	remove (id, callback) {
 		var data = JSON.parse(localStorage[this._dbName]);
 		var todos = data.todos;
 
@@ -135,16 +156,18 @@
 
 	/**
 	 * Will drop all storage and start fresh
+	 * 
+	 * This function creates an empty todos and replace the current
+	 * one with it
 	 *
 	 * @param {function} callback The callback to fire after dropping the data
 	 */
-	Store.prototype.drop = function (callback) {
+	drop (callback) {
 		var data = { todos: [] };
 		localStorage[this._dbName] = JSON.stringify(data);
 		callback.call(this, data.todos);
 	};
 
-	// Export to window
-	window.app = window.app || {};
-	window.app.Store = Store;
-})(window);
+}
+
+export default Store;
