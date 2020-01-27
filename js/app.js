@@ -1,6 +1,6 @@
-import '../node_modules/todomvc-common/base.js';
-import './helpers.js';
+// import '../node_modules/todomvc-common/base.js';
 import Todo from './todo.js';
+import {$on} from './helpers.js';
 
 /**
  * app.js is the entry point for the web application.

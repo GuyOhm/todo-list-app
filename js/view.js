@@ -1,3 +1,5 @@
+import {qs, qsa, $on, $parent, $delegate} from './helpers.js';
+
 /**
 		 * View that abstracts away the browser's DOM completely.
 		 * It has two simple entry points:
