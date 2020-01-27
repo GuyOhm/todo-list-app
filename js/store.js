@@ -33,6 +33,7 @@ class Store {
 			localStorage[name] = JSON.stringify(data);
 		}
 		// Make sure the store index is updated accordingly when refreshing page
+		// (is working as long as we can't reorganize the todos i.e. keep the same indexes)
 		else if ( JSON.parse(localStorage[name]).todos.length > 0 ) {
 			var todos = JSON.parse(localStorage[name]).todos;
 			var lastIndex = todos.length - 1;
