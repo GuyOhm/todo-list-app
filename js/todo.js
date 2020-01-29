@@ -5,16 +5,21 @@ import View from './view.js';
 import Controller from './controller.js';
 
 /**
- * Sets up a brand new Todo list.
- *
- * @example
- * var todo = new Todo(name);
+ * 
+ * **The Todo class represents a list of todos.**
+ * 
+ * The todo class is responible for creating the main
+ * object instances needed for the app to work.
  * 
  */
 class Todo {
 	/**
-	 * @constructor
+	 * 
+	 * Sets up a brand new Todo list.
 	 * @param {string} name The name of your new to do list.
+	 * @example
+	 * var todo = new Todo(name);
+	 * 
 	 */
 	constructor(name) {
 		/**

@@ -1,17 +1,27 @@
 /**
- * Creates a new client side storage object and will create an empty
- * collection if no collection already exists.
  * 
- * @example
- * var storage = new Store(name, callback);
+ * **The Store class is responsible for the storage of the data.**
+ * 
+ * The store call interacts with the localStorage of the browser
+ * and makes sure that data are correcty saved, found, updated
+ * and removed.
  * 
  */
 class Store {
 	/**
-	 * @constructor
+	 * 
+	 * Creates a new client side storage object and will create an empty
+ 	 * collection if no collection already exists. If the collection already
+	 * exits, we make sure the store index is updated accordingly so that we
+	 * avoid id conflicts (the current solution is working as long as we can't 
+	 * reorganize the todos i.e. change todos indexes).
+	 * 
 	 * @param {string} name The name of our DB we want to use
  	 * @param {function} callback Our fake DB uses callbacks because in
  	 * real life you probably would be making AJAX calls
+	 * @example
+ 	 * var storage = new Store(name, callback);
+	 * 
 	 */
 	constructor (name, callback) {
 
@@ -21,7 +31,7 @@ class Store {
 		 */
 		this._dbName = name;
 		/**
-		 * @type {number} 
+		 * @type {number}
 		 */
 		this.index = 0;
 	
@@ -32,8 +42,7 @@ class Store {
 	
 			localStorage[name] = JSON.stringify(data);
 		}
-		// Make sure the store index is updated accordingly when refreshing page
-		// (is working as long as we can't reorganize the todos i.e. keep the same indexes)
+		// 
 		else if ( JSON.parse(localStorage[name]).todos.length > 0 ) {
 			var todos = JSON.parse(localStorage[name]).todos;
 			var lastIndex = todos.length - 1;
@@ -97,7 +106,7 @@ class Store {
 	 * 
 	 * @param {object} updateData The data to save back into the DB
 	 * @param {function} callback The callback to fire after saving
-	 * @param {number} id An optional param to enter an ID of an item to update
+	 * @param {number} id An optional param to enter an ID of an item to update.
 	 */
 	save (updateData, callback, id) {
 		var data = JSON.parse(localStorage[this._dbName]);

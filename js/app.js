@@ -1,4 +1,3 @@
-// import '../node_modules/todomvc-common/base.js';
 import Todo from './todo.js';
 import {$on} from './helpers.js';
 

@@ -1,15 +1,25 @@
 	/**
-	 * Takes a model and view and acts as the controller between them
-	 *
-	 * @param {Model} model The model instance
-	 * @param {View} view The view instance
+	 * 
+	 * **The Controller class is responsible for controlling the communication
+	 * between the Model and the View.**
+	 * 
+	 * Globally, the controller ensures that the information passed from the view
+	 * to the model are valid. It also makes sure that view's elements are firing
+	 * the right methods of the model to complete the right actions such as:
+	 * 
+	 * - add a todo
+	 * - edit a todo
+	 * - remove a todo
+	 * 
 	 */
 	class Controller {
 		/**
 		 * 
-		 * @constructor
+		 * Takes a model and view and acts as the controller between them
 		 * @param {Model} model The model instance
 		 * @param {View} view The view instance
+		 * @example
+		 * var controller = new Controller(model, view);
 		 * 
 		 */
 		constructor(model, view) {
@@ -201,7 +211,7 @@
 		 * in storage based on the checkbox's state.
 		 *
 		 * @param {number} id The ID of the element to complete or uncomplete
-		 * @param {object} checkbox The checkbox to check the state of complete
+		 * @param {Object} checkbox The checkbox to check the state of complete
 		 *                          or not
 		 * @param {boolean|undefined} silent Prevent re-filtering the todo items
 		 */
@@ -223,7 +233,7 @@
 		 * Will toggle ALL checkboxes' on/off state and completeness of models.
 		 * Just pass in the event object.
 		 * 
-		 * @param {object} completed The on/off state of models 
+		 * @param {Object} completed The on/off state of models 
 		 */
 		toggleAll (completed) {
 			var self = this;
@@ -257,20 +267,29 @@
 		/**
 		 * Re-filters the todo items, based on the active route.
 		 * @param {boolean|undefined} force  forces a re-painting of todo items.
+		 * 
+		 * If the last active route isn't "All", or we're switching routes, we
+		 * re-create the todo item elements, calling:
+		 * this.show[All|Active|Completed]();
 		 */
 		_filter (force) {
+			/**
+			 * @type {string}
+			 */
 			var activeRoute = this._activeRoute.charAt(0).toUpperCase() + this._activeRoute.substr(1);
 	
-			// Update the elements on the page, which change with each completed todo
+			/**
+			 * Update the elements on the page, which change with each completed todo
+			 */
 			this._updateCount();
 	
-			// If the last active route isn't "All", or we're switching routes, we
-			// re-create the todo item elements, calling:
-			//   this.show[All|Active|Completed]();
 			if (force || this._lastActiveRoute !== 'All' || this._lastActiveRoute !== activeRoute) {
 				this['show' + activeRoute]();
 			}
 	
+			/**
+			 * @type {string}
+			 */
 			this._lastActiveRoute = activeRoute;
 		};
 	
@@ -278,10 +297,14 @@
 		 * Simply updates the filter nav's selected states
 		 * 
 		 * @param {string} currentPage The current active route
+		 * 
+		 * Store a reference to the active route, allowing us to re-filter todo
+		 * items as they are marked complete or incomplete.
 		 */
 		_updateFilterState (currentPage) {
-			// Store a reference to the active route, allowing us to re-filter todo
-			// items as they are marked complete or incomplete.
+			/**
+			 * @type {string}
+			 */
 			this._activeRoute = currentPage;
 	
 			if (currentPage === '') {

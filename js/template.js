@@ -21,13 +21,25 @@ var escape = function (string) {
 };
 
 /**
- * Sets up defaults for all the Template methods such as a default template
- *
- * @constructor
+ * 
+ * **The Template class is responsible for displaying data.**
+ * 
+ * The template class creates a default template and ensures that
+ * data are displayed properly such as : todos, count and completed button.
+ * 
  */
 class Template {
-	
+	/**
+	 * 
+	 * Sets up defaults for all the Template methods such as a default template
+	 * @example
+	 * var template = new Template();
+	 * 
+	 */
 	constructor() {
+		/**
+		 * @type {string}
+		 */
 		this.defaultTemplate
 			= '<li data-id="{{id}}" class="{{completed}}">'
 			+ '<div class="view">'
@@ -44,7 +56,7 @@ class Template {
 	 * NOTE: In real life you should be using a templating engine such as Mustache
 	 * or Handlebars, however, this is a vanilla JS example.
 	 *
-	 * @param {object} data The object containing keys you want to find in the
+	 * @param {Object} data The object containing keys you want to find in the
 	 *                      template to replace.
 	 * @returns {string} HTML String of an <li> element
 	 *

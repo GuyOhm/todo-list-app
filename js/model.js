@@ -1,17 +1,25 @@
 /**
- * Creates a new Model instance and hooks up the storage.
- *
- * @param {object} storage A reference to the client side storage class
  * 
- * @example
- * var model = new Model()
+ * **The Model class is responsible for manipulating data.**
+ * 
+ * The model allows to perform operations with data such, mainly
+ * CRUD operations (Create, Read, Update, Delete).
+ * 
+ * The model interacts with the storage itself.
+ * 
  */
 class Model {
 	/**
-	 * @constructor
- 	 * @param {Store} storage A reference to the client side storage class
+	 * 
+	 * Creates a new Model instance and hooks up the storage.
+	 * @param {Object} storage A reference to the client side storage class
+ 	 * @example
+ 	 * var model = new Model(storage)
 	 */
 	constructor(storage) {
+		/**
+			 * @type {Object}
+			 */
 		this.storage = storage;
 	}
 	
@@ -39,8 +47,9 @@ class Model {
 	 * the ID of the model to find. Lastly, you can pass it an object to match
 	 * against.
 	 *
-	 * @param {string|number|object} [query] A query to match models against
+	 * @param {string|number|Object} [query] A query to match models against
 	 * @param {function} [callback] The callback to fire after the model is found
+	 * @returns {function} Call this.storage.findAll(callback) is the query type is a function
 	 *
 	 * @example
 	 * model.read(1, func); // Will find the model with an ID of 1
@@ -68,7 +77,7 @@ class Model {
 	 * the update is complete.
 	 *
 	 * @param {number} id The id of the model to update
-	 * @param {object} data The properties to update and their new value
+	 * @param {Object} data The properties to update and their new value
 	 * @param {function} callback The callback to fire when the update is complete.
 	 */
 	update (id, data, callback) {
