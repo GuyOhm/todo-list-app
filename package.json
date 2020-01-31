@@ -10,6 +10,6 @@
     "jasmine-core": "^2.0.0"
   },
   "scripts": {
-    "docs": "./node_modules/.bin/esdoc"
+    "docs": "./node_modules/.bin/esdoc && open docs/index.html"
   }
 }
