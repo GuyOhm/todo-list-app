@@ -211,9 +211,8 @@
 		 * in storage based on the checkbox's state.
 		 *
 		 * @param {number} id The ID of the element to complete or uncomplete
-		 * @param {Object} checkbox The checkbox to check the state of complete
-		 *                          or not
-		 * @param {boolean|undefined} silent Prevent re-filtering the todo items
+		 * @param {boolean} checkbox The checkbox to check the state of complete or not
+		 * @param {boolean|undefined} [silent] Prevent re-filtering the todo items
 		 */
 		toggleComplete (id, completed, silent) {
 			var self = this;

@@ -51,14 +51,14 @@ class Template {
 	}
 	
 	/**
-	 * Creates an <li> HTML string and returns it for placement in your app.
+	 * Creates an `<li>` HTML string and returns it for placement in your app.
 	 *
-	 * NOTE: In real life you should be using a templating engine such as Mustache
-	 * or Handlebars, however, this is a vanilla JS example.
+	 * *NOTE: In real life you should be using a templating engine such as Mustache
+	 * or Handlebars, however, this is a vanilla JS example.*
 	 *
 	 * @param {Object} data The object containing keys you want to find in the
 	 *                      template to replace.
-	 * @returns {string} HTML String of an <li> element
+	 * @returns {string} HTML String of an `<li>` element
 	 *
 	 * @example
 	 * view.show({
