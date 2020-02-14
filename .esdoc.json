@@ -1,5 +1,18 @@
 {
-"source": "./js",
-"destination": "./docs",
-"plugins": [{"name": "esdoc-standard-plugin"}]
+  "source": "./js",
+  "destination": "./docs",
+  "plugins": [
+    {
+      "name": "esdoc-standard-plugin",
+      "option": {
+        "manual": {
+          "index": "./manual/index.md",
+          "files": [
+            "./manual/user-guide.md",
+            "./manual/audits.md"
+          ]
+        }
+      }
+    }
+  ]
 }
