@@ -1,6 +1,8 @@
 # User Guide
 
-**You will enjoy our Todo List App! It is fast, clear and easy to use. You will be able to add, remove and complete your tasks flawlessly. Our preset filters make it easy to visualize todos based on their different status.**
+**You will enjoy our Todo List App! It is fast, clear and easy to use.**
+
+**You will be able to add, remove and complete your tasks flawlessly. Our preset filters make it easy to visualize todos based on their different status.**
 
 **Let's get organized!**
 
