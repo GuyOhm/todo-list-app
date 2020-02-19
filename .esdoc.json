@@ -7,7 +7,7 @@
       "option": {
         "manual": {
           "index": "./manual/index.md",
-          "asset": "/manual/asset",
+          "asset": "./manual/asset",
           "files": [
             "./manual/user-guide.md",
             "./manual/audits.md"

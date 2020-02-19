@@ -2,7 +2,6 @@
   "private": true,
   "dependencies": {
     "jasmine": "^3.5.0",
-    "marked": "^0.8.0",
     "todomvc-app-css": "^2.0.1",
     "todomvc-common": "^1.0.1"
   },
@@ -13,7 +12,7 @@
     "jasmine-core": "^3.5.0"
   },
   "scripts": {
-    "docs": "./node_modules/.bin/esdoc",
+    "docs": "./node_modules/.bin/esdoc && open ./docs/index.html",
     "test": "http-server -o ./test/SpecRunner.html",
     "start": "http-server -o ./index.html"
   }
